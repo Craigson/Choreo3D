@@ -34,7 +34,7 @@ public:
     
     void renderStatic();
 
-    void renderPhysics(bool originOn);
+    void renderSkeleton();
     void update(const std::vector<glm::vec3>& positions);
     void drawRibbon();
     

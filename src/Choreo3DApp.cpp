@@ -103,8 +103,7 @@ class Choreo3DApp : public App {
     
     bool ribbonsActive = true;
     bool trailsActive = true;
-    bool physicsActive = false;
-    bool physicsStatic = false;
+    bool skeletonActive = true;
     bool markersActive = true;
     
 };
@@ -326,9 +325,7 @@ void Choreo3DApp::draw()
     
     if(markersActive)mSphereBatch->drawInstanced( jointList.size() );
     
-    if(physicsActive)skeleton.renderPhysics(true);
-    
-    if(physicsStatic)skeleton.renderStatic();
+    if(skeletonActive)skeleton.renderSkeleton();
     
     if(ribbonsActive)drawRibbons();
     

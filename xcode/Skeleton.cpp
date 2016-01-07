@@ -61,7 +61,7 @@ Skeleton::Skeleton(const std::vector<glm::vec3>& jointPos)
     
 }
 
-void Skeleton::renderStatic()
+void Skeleton::renderSkeleton()
 {
     
         ci::gl::color(1.,1.,1.);
@@ -90,17 +90,17 @@ void Skeleton::renderStatic()
         ci::gl::drawLine(l_knee, l_foot);
 }
     
-void Skeleton::renderPhysics(bool originOn)
-{
-    for (auto &j : physicsJoints){
-        j.display();
-    }
-    
-    for (auto &b : physicsBones){
-        b.display();
-    }
-
-}
+//void Skeleton::renderSkeleton(bool originOn)
+//{
+//    for (auto &j : physicsJoints){
+//        j.display();
+//    }
+//    
+//    for (auto &b : physicsBones){
+//        b.display();
+//    }
+//
+//}
 
 
 

@@ -33,6 +33,8 @@
 #include "cinder/Easing.h"
 #include "Trail.h"
 
+#include "CinderImGui.h"
+
 using namespace ci;
 using namespace ci::app;
 using namespace std;
@@ -41,6 +43,7 @@ class Choreo3DApp : public App {
   public:
 	void setup() override;
 	void mouseDrag( MouseEvent event ) override;
+    void keyDown(KeyEvent event) override;      //FOR SAVING SCREENSHOTS
 	void update() override;
 	void draw() override;
     
@@ -52,6 +55,9 @@ class Choreo3DApp : public App {
     void updateRibbons();
     
     void initData();    //METHOD FOR IMPORTING AND INTIALIZING ALL MOCAP DATA
+    
+    void setupGUI();
+    void displayGUI();
     
     //CREATE A VERTEX BATCH FOR THE FLOOR MESH
     gl::VertBatchRef	mGridMesh;
@@ -189,7 +195,8 @@ void Choreo3DApp::setup()
         ribbons.push_back(r);
     }
     
-    //SETUP TRAILS
+    //SETUP THE GUI
+    setupGUI();
     
 
 }
@@ -239,7 +246,7 @@ void Choreo3DApp::update()
     mInstanceDataVbo->unmap();
     // std::cout << "position: " << positions[0] << std::endl;
     
-    //if (ribbonsActive)updateRibbons();
+    if (ribbonsActive)updateRibbons();
     
     //MANUALLY INCREMENT THE FRAME, IF THE FRAME_COUNT EXCEEDS TOTAL FRAMES, RESET THE COUNTER
     if (FRAME_COUNT < TOTAL_FRAMES)
@@ -262,7 +269,8 @@ void Choreo3DApp::update()
 void Choreo3DApp::draw()
 {
     
-    gl::clear(Color(0.05f,0.05f,0.05f) );
+    //gl::clear(Color(0.05f,0.05f,0.05f) );
+    displayGUI();
     
     //THIS MAY NEED TO BE CLEANED UP
     vector<std::string> dataVector = {"CCL_JOINT_CCL3_00_skip10.json"};
@@ -330,7 +338,18 @@ void Choreo3DApp::draw()
     if(ribbonsActive)drawRibbons();
     
     if(trailsActive)handTrail.render();
+    
+    
 }
+
+//--------------------  KEY DOWN -----------------------------
+
+void Choreo3DApp::keyDown (KeyEvent event) {
+    //skeleton.pushone(vec3(200,200,0));
+    writeImage( getDocumentsDirectory() / "Cinder" / "screenshots"/ "CCL_images" / "saveImage_" /( toString( mCurrentFrame ) + ".png" ), copyWindowSurface() );
+    std::cout << "Saving image" << std::endl;
+}
+
 
 //-------------------- IMPORT DATA -------------------------
 
@@ -468,6 +487,28 @@ void Choreo3DApp::drawRibbons(){
         gl::end();
     }
 }
+
+//------------------------ S E T U P  G U I ------------------------------
+void Choreo3DApp::setupGUI()
+{
+    ui::initialize();
+}
+
+//------------------------ D I S P L A Y  G U I -------------------------
+
+void Choreo3DApp::displayGUI()
+{
+    static float background = 0.5f;  //DEFAULT BACKGROUND COLOR
+    gl::clear( ColorA::gray( background ) );
+    
+    //CREATE A WINDOW
+    ui::ScopedWindow window( "Choreo3D" );
+    
+    //CREATE A SLIDING BAR TO SET THE BACKGROUND COLOR
+    ui::SliderFloat( "Background", &background, 0.0f, 255.0f, "%.3f", 1.0f);
+    
+}
+
 
 CINDER_APP( Choreo3DApp, RendererGl(RendererGl::Options().msaa( 16 ) ), [&]( App::Settings *settings ) {
     settings->setWindowSize( 1280, 720 );

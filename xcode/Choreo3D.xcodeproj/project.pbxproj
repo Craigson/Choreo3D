@@ -16,10 +16,10 @@
 		00B784B60FF439BC000DE1D7 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784B20FF439BC000DE1D7 /* CoreAudio.framework */; };
 		00B9955A1B128DF400A5C623 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B995581B128DF400A5C623 /* IOKit.framework */; };
 		00B9955B1B128DF400A5C623 /* IOSurface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B995591B128DF400A5C623 /* IOSurface.framework */; };
-		448C8B9B1C3ECA4D009AD29C /* include in Sources */ = {isa = PBXBuildFile; fileRef = 448C8B9A1C3ECA4D009AD29C /* include */; };
-		448C8BA21C3ECA8D009AD29C /* include in Sources */ = {isa = PBXBuildFile; fileRef = 448C8B9E1C3ECA8D009AD29C /* include */; };
-		448C8BA31C3ECA8D009AD29C /* include in Sources */ = {isa = PBXBuildFile; fileRef = 448C8B9F1C3ECA8D009AD29C /* include */; };
-		448C8BA41C3ECA8D009AD29C /* include in Sources */ = {isa = PBXBuildFile; fileRef = 448C8BA01C3ECA8D009AD29C /* include */; };
+		448B46E61C3EF0E200272354 /* imgui_demo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 448B46E31C3EF0E200272354 /* imgui_demo.cpp */; };
+		448B46E71C3EF0E200272354 /* imgui_draw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 448B46E41C3EF0E200272354 /* imgui_draw.cpp */; };
+		448B46E81C3EF0E200272354 /* imgui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 448B46E51C3EF0E200272354 /* imgui.cpp */; };
+		448B46EA1C3EF0FD00272354 /* CinderImGui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 448B46E91C3EF0FD00272354 /* CinderImGui.cpp */; };
 		448C8BAD1C3ED573009AD29C /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 448C8BAC1C3ED573009AD29C /* assets */; };
 		448C8BB01C3ED6EF009AD29C /* Skeleton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 448C8BAE1C3ED6EF009AD29C /* Skeleton.cpp */; };
 		448C8BB61C3ED8D2009AD29C /* CCL_MocapData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 448C8BB21C3ED8D2009AD29C /* CCL_MocapData.cpp */; };
@@ -49,18 +49,10 @@
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
-		448C8B9A1C3ECA4D009AD29C /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; name = include; path = ../include; sourceTree = "<group>"; };
-		448C8B9C1C3ECA64009AD29C /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; name = include; path = ../include; sourceTree = "<group>"; };
-		448C8B9E1C3ECA8D009AD29C /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; name = include; path = ../include; sourceTree = "<group>"; };
-		448C8B9F1C3ECA8D009AD29C /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; name = include; path = ../include; sourceTree = "<group>"; };
-		448C8BA01C3ECA8D009AD29C /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; name = include; path = ../include; sourceTree = "<group>"; };
-		448C8BA11C3ECA8D009AD29C /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; name = include; path = ../include; sourceTree = "<group>"; };
-		448C8BA61C3ECAC2009AD29C /* include */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = folder; name = include; path = ../include; sourceTree = "<group>"; };
-		448C8BA71C3ECAE9009AD29C /* include */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = folder; name = include; path = ../include; sourceTree = "<group>"; };
-		448C8BA81C3ECB11009AD29C /* include */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = folder; name = include; path = ../include; sourceTree = "<group>"; };
-		448C8BA91C3ECB42009AD29C /* include */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = folder; name = include; path = ../include; sourceTree = "<group>"; };
-		448C8BAA1C3ECB42009AD29C /* include */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = folder; name = include; path = ../include; sourceTree = "<group>"; };
-		448C8BAB1C3ECB42009AD29C /* include */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = folder; name = include; path = ../include; sourceTree = "<group>"; };
+		448B46E31C3EF0E200272354 /* imgui_demo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = imgui_demo.cpp; sourceTree = "<group>"; };
+		448B46E41C3EF0E200272354 /* imgui_draw.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = imgui_draw.cpp; sourceTree = "<group>"; };
+		448B46E51C3EF0E200272354 /* imgui.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = imgui.cpp; sourceTree = "<group>"; };
+		448B46E91C3EF0FD00272354 /* CinderImGui.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CinderImGui.cpp; sourceTree = "<group>"; };
 		448C8BAC1C3ED573009AD29C /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
 		448C8BAE1C3ED6EF009AD29C /* Skeleton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Skeleton.cpp; sourceTree = "<group>"; };
 		448C8BAF1C3ED6EF009AD29C /* Skeleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Skeleton.h; sourceTree = "<group>"; };
@@ -111,18 +103,6 @@
 		01B97315FEAEA392516A2CEA /* Blocks */ = {
 			isa = PBXGroup;
 			children = (
-				448C8BA91C3ECB42009AD29C /* include */,
-				448C8BAA1C3ECB42009AD29C /* include */,
-				448C8BAB1C3ECB42009AD29C /* include */,
-				448C8BA81C3ECB11009AD29C /* include */,
-				448C8BA71C3ECAE9009AD29C /* include */,
-				448C8BA61C3ECAC2009AD29C /* include */,
-				448C8B9E1C3ECA8D009AD29C /* include */,
-				448C8B9F1C3ECA8D009AD29C /* include */,
-				448C8BA01C3ECA8D009AD29C /* include */,
-				448C8BA11C3ECA8D009AD29C /* include */,
-				448C8B9C1C3ECA64009AD29C /* include */,
-				448C8B9A1C3ECA4D009AD29C /* include */,
 			);
 			name = Blocks;
 			sourceTree = "<group>";
@@ -202,6 +182,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				448B46EB1C3EF17900272354 /* Include */,
 				55AA1B49BE084FFBADB3934A /* CinderApp.icns */,
 				D8EABBEDF2364F0799444C44 /* Info.plist */,
 			);
@@ -215,6 +196,17 @@
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		448B46EB1C3EF17900272354 /* Include */ = {
+			isa = PBXGroup;
+			children = (
+				448B46E91C3EF0FD00272354 /* CinderImGui.cpp */,
+				448B46E31C3EF0E200272354 /* imgui_demo.cpp */,
+				448B46E41C3EF0E200272354 /* imgui_draw.cpp */,
+				448B46E51C3EF0E200272354 /* imgui.cpp */,
+			);
+			name = Include;
 			sourceTree = "<group>";
 		};
 		448C8BB11C3ED8B6009AD29C /* DataHandlers */ = {
@@ -339,16 +331,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				448B46EA1C3EF0FD00272354 /* CinderImGui.cpp in Sources */,
+				448B46E61C3EF0E200272354 /* imgui_demo.cpp in Sources */,
+				448B46E71C3EF0E200272354 /* imgui_draw.cpp in Sources */,
+				448B46E81C3EF0E200272354 /* imgui.cpp in Sources */,
 				448C8BB71C3ED8D2009AD29C /* CCL_MocapJoint.cpp in Sources */,
 				448C8BC91C3ED962009AD29C /* Trail.cpp in Sources */,
 				448C8BC71C3ED962009AD29C /* Bone.cpp in Sources */,
 				448C8BB01C3ED6EF009AD29C /* Skeleton.cpp in Sources */,
 				448C8BBF1C3ED90E009AD29C /* Jzon.cpp in Sources */,
-				448C8BA21C3ECA8D009AD29C /* include in Sources */,
-				448C8BA31C3ECA8D009AD29C /* include in Sources */,
 				448C8BB81C3ED8D2009AD29C /* Joint.cpp in Sources */,
-				448C8BA41C3ECA8D009AD29C /* include in Sources */,
-				448C8B9B1C3ECA4D009AD29C /* include in Sources */,
 				448C8BC81C3ED962009AD29C /* RibbonFunctions.cpp in Sources */,
 				DA352A68C6514146867B38FD /* Choreo3DApp.cpp in Sources */,
 				448C8BB61C3ED8D2009AD29C /* CCL_MocapData.cpp in Sources */,

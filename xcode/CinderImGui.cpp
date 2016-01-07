@@ -324,9 +324,9 @@ public:
 	
 protected:
 	ci::gl::Texture2dRef	mFontTexture;
-	ci::gl::VaoRef          mVao;
-	ci::gl::VboRef          mVbo;
-	ci::gl::VboRef          mIbo;
+	ci::gl::VaoRef		mVao;
+	ci::gl::VboRef		mVbo;
+	ci::gl::VboRef		mIbo;
 	ci::gl::GlslProgRef		mShader;
 	
 	map<string,ImFont*>		mFonts;

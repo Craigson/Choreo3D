@@ -1,32 +1,25 @@
 {
-  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "AD4B458D0D225ED63FAE0155615993B7D3ECE020",
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "808626EC40BBF3B85C584B4D9C86470E5B099BDD",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
 
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
-    "2DEE13513E787DA04AD2C0CB3D93F067C441B880" : 0,
-    "0C95EEA8FF0C0E695973CB8EA4E7E70E385D606F" : 0,
+    "808626EC40BBF3B85C584B4D9C86470E5B099BDD" : 0,
     "AD4B458D0D225ED63FAE0155615993B7D3ECE020" : 0
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "A0B78DAD-7659-4A1B-A33C-96223F679712",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
-    "2DEE13513E787DA04AD2C0CB3D93F067C441B880" : "Cinder\/myProjects\/Choreo3D\/xcode\/Cinder-ImGui\/",
-    "0C95EEA8FF0C0E695973CB8EA4E7E70E385D606F" : "Cinder\/myProjects\/Choreo3D\/xcode\/Cinder-ImGui\/lib\/imgui\/",
-    "AD4B458D0D225ED63FAE0155615993B7D3ECE020" : "Cinder\/"
+    "808626EC40BBF3B85C584B4D9C86470E5B099BDD" : "Choreo3D\/",
+    "AD4B458D0D225ED63FAE0155615993B7D3ECE020" : ".."
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "Choreo3D",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
-  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "myProjects\/Choreo3D\/xcode\/Choreo3D.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "xcode\/Choreo3D.xcodeproj",
   "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
     {
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/ocornut\/imgui.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Craigson\/Choreo3D.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "0C95EEA8FF0C0E695973CB8EA4E7E70E385D606F"
-    },
-    {
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/simongeilfus\/Cinder-ImGui.git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "2DEE13513E787DA04AD2C0CB3D93F067C441B880"
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "808626EC40BBF3B85C584B4D9C86470E5B099BDD"
     },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Craigson\/Cinder.git",

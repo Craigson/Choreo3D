@@ -20,6 +20,15 @@
 		448C8BA21C3ECA8D009AD29C /* include in Sources */ = {isa = PBXBuildFile; fileRef = 448C8B9E1C3ECA8D009AD29C /* include */; };
 		448C8BA31C3ECA8D009AD29C /* include in Sources */ = {isa = PBXBuildFile; fileRef = 448C8B9F1C3ECA8D009AD29C /* include */; };
 		448C8BA41C3ECA8D009AD29C /* include in Sources */ = {isa = PBXBuildFile; fileRef = 448C8BA01C3ECA8D009AD29C /* include */; };
+		448C8BAD1C3ED573009AD29C /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 448C8BAC1C3ED573009AD29C /* assets */; };
+		448C8BB01C3ED6EF009AD29C /* Skeleton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 448C8BAE1C3ED6EF009AD29C /* Skeleton.cpp */; };
+		448C8BB61C3ED8D2009AD29C /* CCL_MocapData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 448C8BB21C3ED8D2009AD29C /* CCL_MocapData.cpp */; };
+		448C8BB71C3ED8D2009AD29C /* CCL_MocapJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 448C8BB31C3ED8D2009AD29C /* CCL_MocapJoint.cpp */; };
+		448C8BB81C3ED8D2009AD29C /* Joint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 448C8BB41C3ED8D2009AD29C /* Joint.cpp */; };
+		448C8BBF1C3ED90E009AD29C /* Jzon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 448C8BBE1C3ED90E009AD29C /* Jzon.cpp */; };
+		448C8BC71C3ED962009AD29C /* Bone.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 448C8BC41C3ED962009AD29C /* Bone.cpp */; };
+		448C8BC81C3ED962009AD29C /* RibbonFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 448C8BC51C3ED962009AD29C /* RibbonFunctions.cpp */; };
+		448C8BC91C3ED962009AD29C /* Trail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 448C8BC61C3ED962009AD29C /* Trail.cpp */; };
 		5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B10EAFCA74003A9687 /* CoreVideo.framework */; };
 		5835C3216B33401E8875EA04 /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = 55AA1B49BE084FFBADB3934A /* CinderApp.icns */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -52,6 +61,23 @@
 		448C8BA91C3ECB42009AD29C /* include */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = folder; name = include; path = ../include; sourceTree = "<group>"; };
 		448C8BAA1C3ECB42009AD29C /* include */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = folder; name = include; path = ../include; sourceTree = "<group>"; };
 		448C8BAB1C3ECB42009AD29C /* include */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = folder; name = include; path = ../include; sourceTree = "<group>"; };
+		448C8BAC1C3ED573009AD29C /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
+		448C8BAE1C3ED6EF009AD29C /* Skeleton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Skeleton.cpp; sourceTree = "<group>"; };
+		448C8BAF1C3ED6EF009AD29C /* Skeleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Skeleton.h; sourceTree = "<group>"; };
+		448C8BB21C3ED8D2009AD29C /* CCL_MocapData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCL_MocapData.cpp; sourceTree = "<group>"; };
+		448C8BB31C3ED8D2009AD29C /* CCL_MocapJoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCL_MocapJoint.cpp; sourceTree = "<group>"; };
+		448C8BB41C3ED8D2009AD29C /* Joint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Joint.cpp; sourceTree = "<group>"; };
+		448C8BBB1C3ED901009AD29C /* CCL_MocapData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCL_MocapData.h; sourceTree = "<group>"; };
+		448C8BBC1C3ED901009AD29C /* CCL_MocapJoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCL_MocapJoint.h; sourceTree = "<group>"; };
+		448C8BBD1C3ED901009AD29C /* Jzon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Jzon.h; sourceTree = "<group>"; };
+		448C8BBE1C3ED90E009AD29C /* Jzon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Jzon.cpp; sourceTree = "<group>"; };
+		448C8BC01C3ED91E009AD29C /* Bone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bone.h; sourceTree = "<group>"; };
+		448C8BC11C3ED91E009AD29C /* Joint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Joint.h; sourceTree = "<group>"; };
+		448C8BC21C3ED91E009AD29C /* RibbonFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RibbonFunctions.h; sourceTree = "<group>"; };
+		448C8BC31C3ED91E009AD29C /* Trail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trail.h; sourceTree = "<group>"; };
+		448C8BC41C3ED962009AD29C /* Bone.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Bone.cpp; sourceTree = "<group>"; };
+		448C8BC51C3ED962009AD29C /* RibbonFunctions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RibbonFunctions.cpp; sourceTree = "<group>"; };
+		448C8BC61C3ED962009AD29C /* Trail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Trail.cpp; sourceTree = "<group>"; };
 		5323E6B10EAFCA74003A9687 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = /System/Library/Frameworks/CoreVideo.framework; sourceTree = "<absolute>"; };
 		55AA1B49BE084FFBADB3934A /* CinderApp.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = CinderApp.icns; path = ../resources/CinderApp.icns; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Choreo3D.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Choreo3D.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -105,6 +131,9 @@
 			isa = PBXGroup;
 			children = (
 				E63C89DE5314485581BAEB8D /* Choreo3DApp.cpp */,
+				448C8BCB1C3ED978009AD29C /* Visuals */,
+				448C8BCA1C3ED96A009AD29C /* Skeleton */,
+				448C8BB11C3ED8B6009AD29C /* DataHandlers */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -147,6 +176,7 @@
 		29B97314FDCFA39411CA2CEA /* Choreo3D */ = {
 			isa = PBXGroup;
 			children = (
+				448C8BAC1C3ED573009AD29C /* assets */,
 				01B97315FEAEA392516A2CEA /* Blocks */,
 				29B97315FDCFA39411CA2CEA /* Headers */,
 				080E96DDFE201D6D7F000001 /* Source */,
@@ -162,6 +192,9 @@
 			children = (
 				1023B41A657B4382997BF284 /* Resources.h */,
 				F576D7C678774CEFA64B4293 /* Choreo3D_Prefix.pch */,
+				448C8BCD1C3ED99B009AD29C /* Visuals */,
+				448C8BCC1C3ED98F009AD29C /* Skeleton */,
+				448C8BBA1C3ED8DA009AD29C /* DataHandlers */,
 			);
 			name = Headers;
 			sourceTree = "<group>";
@@ -182,6 +215,64 @@
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		448C8BB11C3ED8B6009AD29C /* DataHandlers */ = {
+			isa = PBXGroup;
+			children = (
+				448C8BBE1C3ED90E009AD29C /* Jzon.cpp */,
+				448C8BB21C3ED8D2009AD29C /* CCL_MocapData.cpp */,
+				448C8BB31C3ED8D2009AD29C /* CCL_MocapJoint.cpp */,
+			);
+			name = DataHandlers;
+			sourceTree = "<group>";
+		};
+		448C8BBA1C3ED8DA009AD29C /* DataHandlers */ = {
+			isa = PBXGroup;
+			children = (
+				448C8BBD1C3ED901009AD29C /* Jzon.h */,
+				448C8BBB1C3ED901009AD29C /* CCL_MocapData.h */,
+				448C8BBC1C3ED901009AD29C /* CCL_MocapJoint.h */,
+			);
+			name = DataHandlers;
+			sourceTree = "<group>";
+		};
+		448C8BCA1C3ED96A009AD29C /* Skeleton */ = {
+			isa = PBXGroup;
+			children = (
+				448C8BC41C3ED962009AD29C /* Bone.cpp */,
+				448C8BAE1C3ED6EF009AD29C /* Skeleton.cpp */,
+				448C8BB41C3ED8D2009AD29C /* Joint.cpp */,
+			);
+			name = Skeleton;
+			sourceTree = "<group>";
+		};
+		448C8BCB1C3ED978009AD29C /* Visuals */ = {
+			isa = PBXGroup;
+			children = (
+				448C8BC51C3ED962009AD29C /* RibbonFunctions.cpp */,
+				448C8BC61C3ED962009AD29C /* Trail.cpp */,
+			);
+			name = Visuals;
+			sourceTree = "<group>";
+		};
+		448C8BCC1C3ED98F009AD29C /* Skeleton */ = {
+			isa = PBXGroup;
+			children = (
+				448C8BC01C3ED91E009AD29C /* Bone.h */,
+				448C8BC11C3ED91E009AD29C /* Joint.h */,
+				448C8BAF1C3ED6EF009AD29C /* Skeleton.h */,
+			);
+			name = Skeleton;
+			sourceTree = "<group>";
+		};
+		448C8BCD1C3ED99B009AD29C /* Visuals */ = {
+			isa = PBXGroup;
+			children = (
+				448C8BC21C3ED91E009AD29C /* RibbonFunctions.h */,
+				448C8BC31C3ED91E009AD29C /* Trail.h */,
+			);
+			name = Visuals;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -237,6 +328,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5835C3216B33401E8875EA04 /* CinderApp.icns in Resources */,
+				448C8BAD1C3ED573009AD29C /* assets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -247,11 +339,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				448C8BB71C3ED8D2009AD29C /* CCL_MocapJoint.cpp in Sources */,
+				448C8BC91C3ED962009AD29C /* Trail.cpp in Sources */,
+				448C8BC71C3ED962009AD29C /* Bone.cpp in Sources */,
+				448C8BB01C3ED6EF009AD29C /* Skeleton.cpp in Sources */,
+				448C8BBF1C3ED90E009AD29C /* Jzon.cpp in Sources */,
 				448C8BA21C3ECA8D009AD29C /* include in Sources */,
 				448C8BA31C3ECA8D009AD29C /* include in Sources */,
+				448C8BB81C3ED8D2009AD29C /* Joint.cpp in Sources */,
 				448C8BA41C3ECA8D009AD29C /* include in Sources */,
 				448C8B9B1C3ECA4D009AD29C /* include in Sources */,
+				448C8BC81C3ED962009AD29C /* RibbonFunctions.cpp in Sources */,
 				DA352A68C6514146867B38FD /* Choreo3DApp.cpp in Sources */,
+				448C8BB61C3ED8D2009AD29C /* CCL_MocapData.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

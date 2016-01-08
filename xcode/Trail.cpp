@@ -29,7 +29,7 @@ Trail::Trail(const glm::vec3& origin)
 }
 
 
-void Trail::update(const glm::vec3& pos)
+void Trail::update(const glm::vec3& pos, ci::ColorAf _dancerColor)
 {
     if(pos.x > threshold || pos.x < threshold || pos.z > threshold || pos.z < threshold || pos.y > threshold || pos.y < threshold){
     positions.push_back(prevPos);
@@ -39,7 +39,7 @@ void Trail::update(const glm::vec3& pos)
 
     prevPos = pos;
   
-    trail.color( ci::ColorAf(0.9f, 0.9f, 0.9f,0.9f) );
+    trail.color( _dancerColor );
     
     trail.vertex(pos);
     
@@ -48,7 +48,7 @@ void Trail::update(const glm::vec3& pos)
 //    std::cout << positions.size() << std::endl;
 }
 
-void Trail::render(){
+void Trail::render(ci::ColorAf _dancerColor){
     {
         ci::gl::enableAlphaBlending();
         ci::ColorA moop(1.0,1.0,1.,0.4);

@@ -32,7 +32,7 @@
 		5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B10EAFCA74003A9687 /* CoreVideo.framework */; };
 		5835C3216B33401E8875EA04 /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = 55AA1B49BE084FFBADB3934A /* CinderApp.icns */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
-		DA352A68C6514146867B38FD /* Choreo3DApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E63C89DE5314485581BAEB8D /* Choreo3DApp.cpp */; };
+		DA352A68C6514146867B38FD /* Chore3DApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E63C89DE5314485581BAEB8D /* Chore3DApp.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -74,7 +74,7 @@
 		55AA1B49BE084FFBADB3934A /* CinderApp.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = CinderApp.icns; path = ../resources/CinderApp.icns; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Choreo3D.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Choreo3D.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8EABBEDF2364F0799444C44 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E63C89DE5314485581BAEB8D /* Choreo3DApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = Choreo3DApp.cpp; path = ../src/Choreo3DApp.cpp; sourceTree = "<group>"; };
+		E63C89DE5314485581BAEB8D /* Chore3DApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Chore3DApp.cpp; path = ../src/Chore3DApp.cpp; sourceTree = "<group>"; };
 		F576D7C678774CEFA64B4293 /* Choreo3D_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = Choreo3D_Prefix.pch; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -110,7 +110,7 @@
 		080E96DDFE201D6D7F000001 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				E63C89DE5314485581BAEB8D /* Choreo3DApp.cpp */,
+				E63C89DE5314485581BAEB8D /* Chore3DApp.cpp */,
 				448C8BCB1C3ED978009AD29C /* Visuals */,
 				448C8BCA1C3ED96A009AD29C /* Skeleton */,
 				448C8BB11C3ED8B6009AD29C /* DataHandlers */,
@@ -342,7 +342,7 @@
 				448C8BBF1C3ED90E009AD29C /* Jzon.cpp in Sources */,
 				448C8BB81C3ED8D2009AD29C /* Joint.cpp in Sources */,
 				448C8BC81C3ED962009AD29C /* RibbonFunctions.cpp in Sources */,
-				DA352A68C6514146867B38FD /* Choreo3DApp.cpp in Sources */,
+				DA352A68C6514146867B38FD /* Chore3DApp.cpp in Sources */,
 				448C8BB61C3ED8D2009AD29C /* CCL_MocapData.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -56,8 +56,10 @@ class Choreo3DApp : public App {
     
     void initData();    //METHOD FOR IMPORTING AND INTIALIZING ALL MOCAP DATA
     
-    void setupGUI();
-    void displayGUI();
+    void initGui();     //CONVENIENCE METHOD FOR INITIALIZING THE GUI PARAMS
+    void updateGui();   //UPDATE THE GUI EVERY FRAME
+    
+    void reset();
     
     //CREATE A VERTEX BATCH FOR THE FLOOR MESH
     gl::VertBatchRef	mGridMesh;
@@ -86,11 +88,6 @@ class Choreo3DApp : public App {
     int FRAME_COUNT;
     int TOTAL_FRAMES;
     
-    BOOL paused = false;
-//    BOOL drawRibbons;
-//    BOOL drawPhysics;
-//    BOOL drawSkeleton;
-    
     int CURRENT_DATA_SET = 0;
     int LOADED_DATA_SET = 0;
     
@@ -107,18 +104,44 @@ class Choreo3DApp : public App {
     
     int mCurrentFrame = 0;
     
-    bool ribbonsActive = true;
-    bool trailsActive = true;
-    bool skeletonActive = true;
-    bool markersActive = true;
+    //SETUP GLOBAL UI VARIABLES
+    ImGui::Options opts;
+    
+    ImGuiStyle style;
+    
+    bool paused;
+    bool camActive;
+    bool uiActive;
+    bool ribbonsActive;
+    bool trailsActive;
+    bool skeletonActive;
+    bool markersActive;
+    bool showGrid;
+    int sphereRadius;
+    int frameRate;
+    
+    ColorA gridColor;
+    
+    float background;
+    
+    ColorAf testBK = ColorAf(0.2f,0.2f,0.2f,1.0f);
+    
+    ColorAf dancerColor = ColorAf(0.0F,1.f,0.f,1.0f);
+    
+    ColorAf markerColour = ColorAf( 1.0f, 1.0f, 1.0f, 1.0f );
+    
+    ColorAf ribbonColor = ColorAf(1.0f,1.0f,1.0f,1.0f);
     
 };
 
 void Choreo3DApp::setup()
 {
     
+    opts.window( getWindow() );
+    
+    frameRate = 12;
     //SET THE GLOBAL FRAMERATE
-    setFrameRate(12);
+    setFrameRate(frameRate);
     
     //SETUP THE 3D ENVIRONMENT
     setupEnviron( 5000, 5000, 100 );
@@ -131,7 +154,7 @@ void Choreo3DApp::setup()
     gl::enableDepthRead();
     gl::enableAlphaBlending();
     
-    //INITIALISE THE CAMERA
+    //INITIALISE THE CAMERA (UI ONLY WORKS IF CAMERA IS DISABLED)
     mCamUi = CameraUi( &mCamera, getWindow() );
     
     initData(); //IMPORT THE JSON DATA AND SORT IT INTO A LIST
@@ -142,7 +165,9 @@ void Choreo3DApp::setup()
     
     std::cout << "total frames: " << TOTAL_FRAMES << std::endl;
     
-    gl::VboMeshRef body = gl::VboMesh::create( geom::Sphere().subdivisions( 16 ).radius(2) );
+    sphereRadius = 2;
+    
+    gl::VboMeshRef body = gl::VboMesh::create( geom::Sphere().subdivisions( 16 ).radius(sphereRadius) );
     
     
     // CREATE THE SPHERES AT THE INITIAL JOINT LOCATIONS
@@ -157,7 +182,7 @@ void Choreo3DApp::setup()
     
     skeleton = Skeleton(framePositions);
     
-    handTrail = Trail(framePositions[17]);
+    handTrail = Trail(framePositions[26]);
     
     
     // create the VBO which will contain per-instance (rather than per-vertex) data
@@ -173,9 +198,6 @@ void Choreo3DApp::setup()
     
     //FINALLY, BUILD THE BATCH, AND MAP THE CUSTOM_0 ATTRIBUTE TO THE "vInstancePosition" GLSL VERTEX ATTRIBUTE
     mSphereBatch = gl::Batch::create( body, mGlsl, { { geom::Attrib::CUSTOM_0, "vInstancePosition" } } );
-    
-    gl::enableDepthWrite();
-    gl::enableDepthRead();
     
     //PRINT OUT JOINT INDEX AND NAME OF JOINT
     
@@ -196,87 +218,112 @@ void Choreo3DApp::setup()
     }
     
     //SETUP THE GUI
-    setupGUI();
-    
+    initGui();
 
 }
 
 void Choreo3DApp::mouseDrag( MouseEvent event )
 {
-    //MOUSE DRAG EVEMT FOR ROTATING CAMERA
-    mCamUi.mouseDrag( event );
 }
 
 void Choreo3DApp::update()
 {
-    //UPDATE POSITIONS
-    //MAP INSTANCE DATA TO VBO
-    //WRITE NEW POSITIONS
-    //UNMAP
+    setFrameRate(frameRate);
     
-    glm::vec3 *newPositions = (glm::vec3*)mInstanceDataVbo->mapReplace();
-    
-    for( int i = 0; i < jointList.size(); ++i ) {
-        
-        float instanceX = jointList[i].jointPositions[FRAME_COUNT].x;
-        float instanceY = jointList[i].jointPositions[FRAME_COUNT].y;
-        float instanceZ = jointList[i].jointPositions[FRAME_COUNT].z;
-        
-        vec3 newPos(vec3(instanceX,instanceY, instanceZ)); //CREATE A NEW VEC3 FOR UPDATING THE VBO
-        
-        framePositions[i] = newPos;
-        
-        //distortedJoints.push_back(newPos);
-        
-    }
-    
-    //REPLACE VEC3s IN VBO BY INCREMENTING THE POINTER
-    for (int i = 0; i < framePositions.size(); i++){
-        *newPositions++ = framePositions[i];
-    }
-    
-    handTrail.update(framePositions[17]);
-    
-    //    std::cout << framePositions[17] << std::endl;
-    
-    
-    skeleton.update(framePositions);
-
-    
-    mInstanceDataVbo->unmap();
-    // std::cout << "position: " << positions[0] << std::endl;
-    
-    if (ribbonsActive)updateRibbons();
-    
-    //MANUALLY INCREMENT THE FRAME, IF THE FRAME_COUNT EXCEEDS TOTAL FRAMES, RESET THE COUNTER
-    if (FRAME_COUNT < TOTAL_FRAMES)
+    //DISABLE CAMERA INTERACTION IF MOUSE IS OVER UI REGION
+    if (getMousePos().x > 3 * getWindowWidth()/4. && camActive)
     {
-        FRAME_COUNT += 1;
+        camActive = false;
+        mCamUi.disconnect();
+        mCamUi.disable();
+        cout << "disabling camera UI" << endl;
     } else {
-        FRAME_COUNT = 0;
+        if (!camActive)
+        {
+            mCamUi.connect(getWindow());
+            mCamUi.enable();
+        }
+        camActive = true;
+        cout << "enabling camera UI" << endl;
     }
     
-    std::cout << getAverageFps() << std:: endl;
-    // std::cout << "frame rate: " << getAverageFps() << ", frame count: " << FRAME_COUNT << std::endl;
+    mGlsl->uniform("uColor", markerColour );
     
-    //define changed color
-    //mGlsl->uniform("uColor", changedColor);
-    
-    mCurrentFrame++; //MANUALLY ADVANCE THE CURRENT FRAME - WITH RESPECT TO THE DANCERS
+    if (!paused)
+    {
+        
+        
+        //UPDATE POSITIONS
+        //MAP INSTANCE DATA TO VBO
+        //WRITE NEW POSITIONS
+        //UNMAP
+        
+        glm::vec3 *newPositions = (glm::vec3*)mInstanceDataVbo->mapReplace();
+        
+        for( int i = 0; i < jointList.size(); ++i )
+        {
+            
+            float instanceX = jointList[i].jointPositions[FRAME_COUNT].x;
+            float instanceY = jointList[i].jointPositions[FRAME_COUNT].y;
+            float instanceZ = jointList[i].jointPositions[FRAME_COUNT].z;
+            
+            vec3 newPos(vec3(instanceX,instanceY, instanceZ)); //CREATE A NEW VEC3 FOR UPDATING THE VBO
+            
+            framePositions[i] = newPos;
+            
+        }
+        
+        //REPLACE VEC3s IN VBO BY INCREMENTING THE POINTER
+        for (int i = 0; i < framePositions.size(); i++){
+            *newPositions++ = framePositions[i];
+        }
+        
+        handTrail.update(framePositions[26], dancerColor);
+        
+        //    std::cout << framePositions[17] << std::endl;
+        
+        
+        skeleton.update(framePositions);
 
+        
+        mInstanceDataVbo->unmap();
+        // std::cout << "position: " << positions[0] << std::endl;
+        
+        if (ribbonsActive)updateRibbons();
+        
+        //MANUALLY INCREMENT THE FRAME, IF THE FRAME_COUNT EXCEEDS TOTAL FRAMES, RESET THE COUNTER
+        if (FRAME_COUNT < TOTAL_FRAMES)
+        {
+            FRAME_COUNT += 1;
+        } else {
+            FRAME_COUNT = 0;
+        }
+        
+        //std::cout << getAverageFps() << std:: endl;
+        // std::cout << "frame rate: " << getAverageFps() << ", frame count: " << FRAME_COUNT << std::endl;
+        
+        //define changed color
+      //  Color temp = Color(dancerColor[0],dancerColor[1],dancerColor[2]);
+        
+        
+        mCurrentFrame++; //MANUALLY ADVANCE THE CURRENT FRAME - WITH RESPECT TO THE DANCERS
+    
+    }
+    
+    updateGui();
 }
 
 void Choreo3DApp::draw()
 {
-    
-    //gl::clear(Color(0.05f,0.05f,0.05f) );
-    displayGUI();
+  
+    //gl::clear( ColorA::gray( background ) );
+    gl::clear(ColorAf(testBK));
     
     //THIS MAY NEED TO BE CLEANED UP
     vector<std::string> dataVector = {"CCL_JOINT_CCL3_00_skip10.json"};
     
     if( CURRENT_DATA_SET != LOADED_DATA_SET){
-        //     paused = true;
+       // paused = true;
         
         
         //   jointList = {};
@@ -325,11 +372,11 @@ void Choreo3DApp::draw()
     
     
     gl::setMatrices( mCamera );
-    renderScene();
     
-    gl::color( 1, 0, 0 );
+    if (showGrid)renderScene();
+    
+    Color( dancerColor[0], dancerColor[1], dancerColor[2] );
     //gl::ScopedModelMatrix modelScope;
-    //mSphereBatch->drawInstanced( sizeOfBody );
     
     if(markersActive)mSphereBatch->drawInstanced( jointList.size() );
     
@@ -337,7 +384,7 @@ void Choreo3DApp::draw()
     
     if(ribbonsActive)drawRibbons();
     
-    if(trailsActive)handTrail.render();
+    if(trailsActive)handTrail.render(dancerColor);
     
     
 }
@@ -346,7 +393,7 @@ void Choreo3DApp::draw()
 
 void Choreo3DApp::keyDown (KeyEvent event) {
     //skeleton.pushone(vec3(200,200,0));
-    writeImage( getDocumentsDirectory() / "Cinder" / "screenshots"/ "CCL_images" / "saveImage_" /( toString( mCurrentFrame ) + ".png" ), copyWindowSurface() );
+    //writeImage( getDocumentsDirectory() / "Cinder" / "screenshots"/ "CCL_images" / "saveImage_" /( toString( mCurrentFrame ) + ".png" ), copyWindowSurface() );
     std::cout << "Saving image" << std::endl;
 }
 
@@ -387,21 +434,22 @@ void Choreo3DApp::setupEnviron( int xSize, int zSize, int spacing )
     
     const int xMax = xSize + spacing;
     const int zMax = zSize + spacing;
-    const ColorA defaultColor( 0.9f, 0.9f, 0.9f,0.1f);
+//    const ColorA defaultColor( 0.9f, 0.9f, 0.9f,0.1f);
+    gridColor = ColorA( 0.9f, 0.9f, 0.9f,0.1f);
     const ColorA black( 0, 0, 0, 1 );
     
     mGridMesh = gl::VertBatch::create( GL_LINES );
     
     // Add x lines.
     for( int xVal = -xSize; xVal < xMax; xVal += spacing ) {
-        mGridMesh->color( defaultColor );
+        mGridMesh->color( gridColor );
         mGridMesh->vertex( (float)xVal, 0, (float)-zSize );
         mGridMesh->vertex( (float)xVal, 0, (float)zSize );
     }// end for each x dir line
     
     // Add z lines.
     for( int zVal = -zSize; zVal < zMax; zVal += spacing ) {
-        mGridMesh->color( defaultColor );
+        mGridMesh->color( gridColor );
         mGridMesh->vertex( (float)xSize, 0, (float)zVal );
         mGridMesh->vertex( (float)-xSize, 0, (float)zVal );
     }// end for each z dir line
@@ -478,7 +526,9 @@ void Choreo3DApp::drawRibbons(){
     for (auto &ribbon: ribbons)
     {
         gl::enableAlphaBlending();
-        ColorA moop(1.0,1.0,1.,0.4);
+
+        gl::color(ribbonColor);
+
         gl::begin(GL_TRIANGLE_STRIP);
         for (auto &p : ribbon._triangles)
         {
@@ -489,24 +539,94 @@ void Choreo3DApp::drawRibbons(){
 }
 
 //------------------------ S E T U P  G U I ------------------------------
-void Choreo3DApp::setupGUI()
+void Choreo3DApp::initGui()
 {
-    ui::initialize();
+    ui::initialize(opts);
+    
+    camActive = true;   //CAMERA MOVEMENT ENABLED BY DEFAULT
+    
+    ribbonsActive = false;
+    trailsActive = false;
+    skeletonActive = false;
+    markersActive = true;
+    showGrid = true;
+    
+    paused = true;  //PAUSED ENABLED BY DEFAULT
+    
+    background = 0.3f;
+
+    
+   
+
+    
 }
 
 //------------------------ D I S P L A Y  G U I -------------------------
 
-void Choreo3DApp::displayGUI()
+void Choreo3DApp::updateGui()
 {
-    static float background = 0.5f;  //DEFAULT BACKGROUND COLOR
-    gl::clear( ColorA::gray( background ) );
     
     //CREATE A WINDOW
-    ui::ScopedWindow window( "Choreo3D" );
+    ui::ScopedWindow window( "Choreo3D" , ImGuiWindowFlags_NoMove);
+    ui::SetWindowPos(ImVec2(930.0, 10));
+    
+    ImVec2 spacing = ImVec2(15.,10.);
+    ui::PushStyleVar(ImGuiStyleVar_ItemSpacing, spacing);
+    
+    //PLAY / PAUSE DANCER
+    ui::Checkbox("PAUSED", &paused);
+    
+    //SHOW GRID
+    ui::SameLine();
+    ui::Checkbox("SHOW FLOOR", &showGrid);
     
     //CREATE A SLIDING BAR TO SET THE BACKGROUND COLOR
-    ui::SliderFloat( "Background", &background, 0.0f, 255.0f, "%.3f", 1.0f);
+    ImGui::SliderInt("SET FRAMERATE", &frameRate, 1, 60);
     
+    ui::Spacing();
+    
+    //CREATE A SLIDING BAR TO SET THE BACKGROUND COLOR
+    //ui::SliderFloat( "BACKGROUND", &background, 0.0f, 1.0f, "%.3f", 1.0f);
+    ui::ColorEdit3("BACKGROUND", &testBK[0] );
+    
+    ui::Spacing();
+    
+    //SHOW MOCAP MARKERS
+    ui::Checkbox("SHOW MOCAP MARKERS", &markersActive);
+    ui::ColorEdit4("MARKER COLOUR", &markerColour[0] );
+    
+    ui::Spacing();
+ 
+    //RIBBONS
+    ui::Checkbox("SHOW TRAILS", &ribbonsActive);
+    ui::ColorEdit4("TRAIL COLOUR", &ribbonColor[0] );
+    
+    ui::Spacing();
+    //SKELETON
+    ui::Checkbox("SHOW SKELETON", &skeletonActive);
+    
+    
+    //CREATE A SLIDING BAR TO SET THE BACKGROUND COLOR
+//    ImGui::SliderInt("MARKER SIZE", &sphereRadius, 1, 10);
+    
+    //SHOW PATH
+    ui::Checkbox("SHOW PATH", &trailsActive);
+    //ui::ColorEdit4("PATH COLOUR", &dancerColor[0] );
+    
+    ui::Spacing();
+    
+    if( ui::Button( "RESET" ) ) reset();
+
+    ui::PopStyleVar();
+}
+
+void Choreo3DApp::reset()
+{
+    gl::clear( ColorA::gray( background ) );
+    FRAME_COUNT = 0;
+    mCurrentFrame = 0;
+    handTrail.prevPos = handTrail.positions[0];
+    handTrail.positions.clear();
 }
 
 

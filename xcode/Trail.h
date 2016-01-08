@@ -20,9 +20,9 @@ public:
     
     ci::ColorA defaultColor;
     
-    void update(const glm::vec3& pos);
+    void update(const glm::vec3& pos, ci::ColorAf _dancerColor);
     
-    void render();
+    void render(ci::ColorAf _dancerColor);
     
     ci::gl::BatchRef trailBatch;
     

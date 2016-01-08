@@ -57,7 +57,7 @@ class Choreo3DApp : public App {
     void initData();    //METHOD FOR IMPORTING AND INTIALIZING ALL MOCAP DATA
     
     void setupGUI();
-    void displayGUI();
+    void updateGUI();
     
     //CREATE A VERTEX BATCH FOR THE FLOOR MESH
     gl::VertBatchRef	mGridMesh;
@@ -112,10 +112,22 @@ class Choreo3DApp : public App {
     bool skeletonActive = true;
     bool markersActive = true;
     
+    float background = 0.3f;
+    
+    struct guiOptions {
+        WindowRef _window;
+    };
+    
+    ImGui::Options opts;
+    
+    bool camActive = true;
+    
 };
 
 void Choreo3DApp::setup()
 {
+    
+    opts.window( getWindow() );
     
     //SET THE GLOBAL FRAMERATE
     setFrameRate(12);
@@ -131,7 +143,7 @@ void Choreo3DApp::setup()
     gl::enableDepthRead();
     gl::enableAlphaBlending();
     
-    //INITIALISE THE CAMERA
+    //INITIALISE THE CAMERA (UI ONLY WORKS IF CAMERA IS DISABLED)
     mCamUi = CameraUi( &mCamera, getWindow() );
     
     initData(); //IMPORT THE JSON DATA AND SORT IT INTO A LIST
@@ -174,8 +186,8 @@ void Choreo3DApp::setup()
     //FINALLY, BUILD THE BATCH, AND MAP THE CUSTOM_0 ATTRIBUTE TO THE "vInstancePosition" GLSL VERTEX ATTRIBUTE
     mSphereBatch = gl::Batch::create( body, mGlsl, { { geom::Attrib::CUSTOM_0, "vInstancePosition" } } );
     
-    gl::enableDepthWrite();
-    gl::enableDepthRead();
+//    gl::enableDepthWrite();
+//    gl::enableDepthRead();
     
     //PRINT OUT JOINT INDEX AND NAME OF JOINT
     
@@ -198,17 +210,37 @@ void Choreo3DApp::setup()
     //SETUP THE GUI
     setupGUI();
     
+    //mCamUi.disable();
+    
 
 }
 
 void Choreo3DApp::mouseDrag( MouseEvent event )
 {
     //MOUSE DRAG EVEMT FOR ROTATING CAMERA
-    mCamUi.mouseDrag( event );
+   // mCamUi.mouseDrag( event );
 }
 
 void Choreo3DApp::update()
 {
+    //DISABLE CAMERA INTERACTION IF MOUSE IS OVER UI REGION
+    if (getMousePos().x > 3 * getWindowWidth()/4. && camActive)
+    {
+        camActive = false;
+        mCamUi.disconnect();
+        mCamUi.disable();
+        cout << "disabling camera UI" << endl;
+    } else {
+        if (!camActive)
+        {
+            mCamUi.connect(getWindow());
+            mCamUi.enable();
+        }
+        camActive = true;
+        cout << "enabling camera UI" << endl;
+    }
+    
+    
     //UPDATE POSITIONS
     //MAP INSTANCE DATA TO VBO
     //WRITE NEW POSITIONS
@@ -256,7 +288,7 @@ void Choreo3DApp::update()
         FRAME_COUNT = 0;
     }
     
-    std::cout << getAverageFps() << std:: endl;
+    //std::cout << getAverageFps() << std:: endl;
     // std::cout << "frame rate: " << getAverageFps() << ", frame count: " << FRAME_COUNT << std::endl;
     
     //define changed color
@@ -268,9 +300,10 @@ void Choreo3DApp::update()
 
 void Choreo3DApp::draw()
 {
-    
+  
+    gl::clear( ColorA::gray( background ) );
     //gl::clear(Color(0.05f,0.05f,0.05f) );
-    displayGUI();
+   
     
     //THIS MAY NEED TO BE CLEANED UP
     vector<std::string> dataVector = {"CCL_JOINT_CCL3_00_skip10.json"};
@@ -339,14 +372,14 @@ void Choreo3DApp::draw()
     
     if(trailsActive)handTrail.render();
     
-    
+    updateGUI();
 }
 
 //--------------------  KEY DOWN -----------------------------
 
 void Choreo3DApp::keyDown (KeyEvent event) {
     //skeleton.pushone(vec3(200,200,0));
-    writeImage( getDocumentsDirectory() / "Cinder" / "screenshots"/ "CCL_images" / "saveImage_" /( toString( mCurrentFrame ) + ".png" ), copyWindowSurface() );
+    //writeImage( getDocumentsDirectory() / "Cinder" / "screenshots"/ "CCL_images" / "saveImage_" /( toString( mCurrentFrame ) + ".png" ), copyWindowSurface() );
     std::cout << "Saving image" << std::endl;
 }
 
@@ -492,20 +525,21 @@ void Choreo3DApp::drawRibbons(){
 void Choreo3DApp::setupGUI()
 {
     ui::initialize();
+    ui::ScopedWindow window( "Choreo3D" , ImGuiWindowFlags_NoMove);
+    ui::SetWindowPos(ImVec2(960.0, 20));
+    
 }
 
 //------------------------ D I S P L A Y  G U I -------------------------
 
-void Choreo3DApp::displayGUI()
+void Choreo3DApp::updateGUI()
 {
-    static float background = 0.5f;  //DEFAULT BACKGROUND COLOR
-    gl::clear( ColorA::gray( background ) );
     
     //CREATE A WINDOW
-    ui::ScopedWindow window( "Choreo3D" );
-    
+    //ui::ScopedWindow window( "Choreo3D" );
+ 
     //CREATE A SLIDING BAR TO SET THE BACKGROUND COLOR
-    ui::SliderFloat( "Background", &background, 0.0f, 255.0f, "%.3f", 1.0f);
+    ui::SliderFloat( "Background", &background, 0.0f, 1.0f, "%.3f", 1.0f);
     
 }
 

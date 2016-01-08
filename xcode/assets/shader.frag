@@ -8,7 +8,7 @@ in vec2	TexCoord;
 
 uniform vec4 uColor = vec4(1);
 
-out vec4 			oColor;
+out vec4 oColor;
 
 
 
